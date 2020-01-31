@@ -21,6 +21,8 @@ from bs4 import BeautifulSoup
 CONFIG_PATH = "./autocheck_config.json"  # 設定ファイルへのパス
 CPP_PATH = "./main.cpp"  # C++ファイルへのパス
 
+COMPILING_CMD = ["g++", "-ggdb", "-Wall", "-std=gnu++14"]
+
 
 def get_args():
     parser = ArgumentParser()
@@ -114,7 +116,7 @@ class AtCoderAutoChecker:
         C++をコンパイルする
         """
         print("Compiling... ")
-        cmd = ["g++", "-ggdb", "-Wall", "-std=c++14", self.code]
+        cmd = [*COMPILING_CMD, self.code]
         result = subprocess.run(cmd, capture_output=True)
         if result.stdout:
             print(result.stdout.decode())
